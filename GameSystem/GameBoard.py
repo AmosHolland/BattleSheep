@@ -1,22 +1,17 @@
+import GameHex
+
 class GameBoard:
 
-    def __init__(self, root_tile):
+    def __init__(self):
 
-        coords = root_tile.get_coords(0, 0)
-        x_min = 0
-        y_min = 0
+        self.hex_board = [[]]
 
-        for i in coords:
-            x = i[1]
-            y = i[2]
+        for x in range (75):
+            for y in range(75):
+                self.hex_board[x][y] = None
+    
+    def add_hex(self, x, y):
+        neighbours = [self.hex_board[x][y + 1], self.hex_board[x + 1][y], self.hex_board[x + 1][y - 1], self.hex_board[x][ y - 1], self.hex_board[x - 1][y - 1], self.hex_board[x - 1][y]]
+        new_hex = GameHex.GameHex(neighbours)
+    
 
-            if x < x_min:
-                x_min = x
-            if y < y_min:
-                y_min = y
-        
-        self.board = [[]]
-
-        for i in coords:
-            self.board[i[2] - y_min][i[1] - x_min] = i[0]
-        
