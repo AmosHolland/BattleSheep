@@ -8,4 +8,4 @@ Battle sheep can be found here: https://boardgamegeek.com/boardgame/54137/battle
 
 ## Why?
 
-I played the game in a board game cafe, and it was kinda neat. I made the mistake of suggesting that I could probably write an implementation for the game, since it's fairly simple, and now I'm here
+I played the game in a board game cafe, and it was kinda neat. I suggested that I could make an implementation of the game, since it's fairly simple, unfortunately other people heard me, and now I'm here.
