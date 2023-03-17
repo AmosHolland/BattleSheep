@@ -1,4 +1,4 @@
-class GameTile:
+class GameHex:
 
     def __init__(self, neighbours):
         self.neighbours = neighbours
@@ -55,9 +55,3 @@ class GameTile:
         coord_list.append((self, x, y))
 
         return coord_list
-    # For visualisation run a thing to get co-ords for all the tiles at the start of the game
-    # (relative to eachother)
-    # Using this info - either:
-    #   - Put all the tiles into a 2D array relative to their co-ordinates
-    #   - Store the co-ordinates of each tile in the tile
-    # Then to visualise iterate through this - get info for each tile from the tile object
