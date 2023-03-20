@@ -81,6 +81,8 @@ class BoardMaker:
 
         return self.available_spaces
 
+    def get_board(self):
+        return self.board
 
 
 
