@@ -1,23 +1,31 @@
 import pygame
+import pygame_menu
 import math
-import sys 
 
-sys.path.append("..")
-
-from GameSystem import GameBoard, GameHex, SheepStack
+import GameBoard, GameHex, SheepStack
 
 
-class BattleSheepGame:
+class GameDisplay:
 
-    def __init__(self, players, screen):
+    def __init__(self):
         self.HEX_SIZE = 20
-        self.GRASS_COLOUR = (0, 154, 23)
+        self.GRASS_COLOUR = (13, 55, 13)
+        self.BACKGROUND_COLOUR = (255, 255, 255)
 
 
-        self.screen = screen
-        self.players = players 
+        self.screen = pygame.display.set_mode((500, 500))
+        pygame.display.set_caption('Battle Sheep') 
+
         self.board = GameBoard.GameBoard()
+        self.players = 2
+
+        self.home_screen()
     
+    def set_players(self, players):
+        print(players)
+        self.players = int(players[0])
+        print(self.players)
+
     def draw_hex(self, centre_x, centre_y):
         vertices = []
         for i in range(6):
@@ -34,6 +42,7 @@ class BattleSheepGame:
         pygame.draw.line(self.screen, (0,0,0), vertices[0], vertices[5])
     
     def draw_board(self):
+        self.screen.fill(self.BACKGROUND_COLOUR)
 
         centre_x = self.HEX_SIZE
         hex_board = self.board.hex_board
@@ -48,45 +57,25 @@ class BattleSheepGame:
                     self.draw_hex(centre_x, centre_y)
                 centre_y += math.sqrt(3) * self.HEX_SIZE
             centre_x += 1.5 * self.HEX_SIZE
+        
+        pygame.display.flip()
 
+        
     def make_dummy_board(self, grid):
         self.board.hex_board = grid
-        
+    
+    def home_screen(self):
 
-# Define the background colour
-# using RGB color coding.
-background_colour = (255, 255, 255)
-  
-# Define the dimensions of
-# screen object(width,height)
-screen = pygame.display.set_mode((1280, 720))
+        self.screen.fill(self.BACKGROUND_COLOUR)
+        pygame.display.flip()
 
-# Set the caption of the screen
-pygame.display.set_caption('Battle Sheep')
-  
-# Fill the background colour to the screen
-screen.fill(background_colour)
-
+        self.make_dummy_board([[0,0,0,0,0],[0,None,0,0,0],[0,0,0,None,0]])
+        main_menu = pygame_menu.Menu("Battle Sheep", 500, 500)
+        main_menu.add.selector("Players: ", ["2", "3", "4"], onchange=self.set_players)
+        main_menu.add.button("Play", self.draw_board)
+        main_menu.add.button("Quit", pygame_menu.events.EXIT)
+        main_menu.mainloop(self.screen)
     
 
-# Update the display using flip
-
-  
-# Variable to keep our game loop running
-running = True
-grid = [[0, 0, 0, 0, 0], [0, None, 0], [0, 0, 0]]
-
-game = BattleSheepGame(2, screen)
-game.make_dummy_board(grid)
-game.draw_board()
-
-pygame.display.flip()
-# game loop
-while running:
-    
-# for loop through the event queue  
-    for event in pygame.event.get():
-      
-        # Check for QUIT event      
-        if event.type == pygame.QUIT:
-            running = False
+pygame.init()
+display = GameDisplay()

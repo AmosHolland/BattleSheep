@@ -5,7 +5,7 @@ class BoardMaker:
     def __init__(self, players):
         self.tiles = players * 4
         self.board = GameBoard.GameBoard()
-        self.available_spaces = [(0, (0,0))]
+        self.available_spaces = [(0, (38,38))]
     
     def add_tile(self, place_index):
         if self.tiles == 0:
