@@ -2,10 +2,10 @@ import GameBoard
 
 class BoardMaker:
 
-    def __init__(self, players):
+    def __init__(self, players, board):
         self.tiles = players * 4
-        self.board = GameBoard.GameBoard()
-        self.available_spaces = [(0, (38,38))]
+        self.board = board
+        self.available_spaces = {(38, 38) : [True, False, False, False]}
     
     def add_tile(self, place_index):
         if self.tiles == 0:
@@ -38,11 +38,12 @@ class BoardMaker:
             self.board.add_hex(x - 1, y + 1)
 
         self.tiles -= 1
+        self.make_available_spaces()
 
         return self.board
 
-    def get_available_spaces(self):
-        self.available_spaces = []
+    def make_available_spaces(self):
+        self.available_spaces = {}
 
         # increments and extra_hexes for certain positions and directions in hex grid
         increments = [(0, 1), (1, 0), (1, -1), (0, -1), (-1, 0), (-1, 1)]
@@ -77,12 +78,17 @@ class BoardMaker:
 
                                 # if this configuration is valid, add it as an available space
                                 if valid_tile:
-                                    self.available_spaces.append(j, (new_x, new_y))
+                                    if (new_x, new_y) not in self.available_spaces:
+                                        self.available_spaces[(new_x, new_y), [False, False, False, False]]
+                                    self.available_spaces[(new_x, new_y)][j] = True 
 
         return self.available_spaces
 
     def get_board(self):
         return self.board
+
+    def get_available_spaces(self):
+        return self.available_spaces
 
 
 
