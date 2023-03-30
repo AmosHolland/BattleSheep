@@ -7,13 +7,13 @@ class BoardMaker:
         self.board = board
         self.available_spaces = {(38, 38) : [True, False, False, False]}
     
-    def add_tile(self, place_index):
+    def add_tile(self, placement_info):
         if self.tiles == 0:
             print ("Board finished.")
             return self.board
 
-        x, y = self.available_spaces[place_index][1]
-        tile_piece = self.available_spaces[place_index][0]
+        x, y = placement_info[1]
+        tile_piece = placement_info[0]
 
         self.board.add_hex(x, y)
 

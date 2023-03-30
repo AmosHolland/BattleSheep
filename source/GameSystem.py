@@ -33,6 +33,18 @@ class GameSystem:
     def get_available_coords(self):
         return self.board_maker.get_available_spaces().keys()
     
+    def get_coord_configs(self, coords):
+        available_spaces = self.board_maker.get_available_spaces()
+        if coords in available_spaces:
+            coord_configs = []
+            for i in range(4):
+                if available_spaces[coords][i]:
+                    coord_configs.append(i)
+            
+            return coord_configs
+        else:
+            print("Passed coord is not a valid new tile")
+
 
 
 

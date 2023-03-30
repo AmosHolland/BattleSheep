@@ -106,10 +106,15 @@ class GameDisplay:
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONUP:
                     x, y = pygame.mouse.get_pos()
-                    print(self.check_new_hex_collisions(x, y))
+                    clicked_hex_coords =  self.check_new_hex_collisions(x, y)
+                    if clicked_hex_coords != None:
+                        self.pick_placement_centre(clicked_hex_coords)
                 if event.type == pygame.QUIT:
                     running = False
 
+    def pick_placement_centre(self, coords):
+        configurations = self.game_system.get_coord_configs(coords)
+        
         
 
 pygame.init()
